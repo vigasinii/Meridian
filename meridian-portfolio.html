@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Playbook — Meridian</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --blue-50: #E6F1FB;
+    --blue-100: #B5D4F4;
+    --blue-200: #85B7EB;
+    --blue-400: #378ADD;
+    --blue-600: #185FA5;
+    --blue-800: #0C447C;
+    --blue-900: #042C53;
+    --ink: #0A0F1E;
+    --ink-muted: #5A6278;
+    --ink-faint: #9AA0B0;
+    --surface: #FFFFFF;
+    --surface-2: #F7F9FC;
+    --surface-3: #EEF3FA;
+    --border: rgba(23,95,165,0.12);
+    --border-strong: rgba(23,95,165,0.25);
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--surface);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5vw; height: 64px;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    transition: box-shadow 0.3s, background 0.3s;
+  }
+  nav.scrolled { box-shadow: 0 2px 20px rgba(4,44,83,0.08); background: rgba(255,255,255,0.97); }
+  .nav-logo { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 600; color: var(--blue-800); letter-spacing: -0.5px; text-decoration: none; }
+  .nav-logo span { color: var(--blue-400); }
+  .nav-links { display: flex; gap: 32px; align-items: center; }
+  .nav-links a { font-size: 14px; color: var(--ink-muted); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--blue-600); }
+  .nav-cta { background: var(--blue-600); color: #fff !important; padding: 8px 20px; border-radius: 6px; font-weight: 500 !important; font-size: 13px !important; transition: background 0.2s !important; }
+  .nav-cta:hover { background: var(--blue-800) !important; }
+
+  /* ── PAGE HERO ── */
+  .page-hero {
+    padding: 140px 5vw 90px;
+    background: linear-gradient(135deg, #EEF3FA 0%, #FFFFFF 55%, #E6F1FB 100%);
+    position: relative; overflow: hidden;
+  }
+  .page-hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(to right, rgba(55,138,221,0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(55,138,221,0.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .page-hero-content { position: relative; z-index: 1; max-width: 700px; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--blue-50); border: 1px solid var(--border-strong);
+    color: var(--blue-600); font-size: 12px; font-weight: 500;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 6px 14px; border-radius: 100px; margin-bottom: 28px;
+  }
+  .eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--blue-400); display: block; }
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(38px, 5.5vw, 62px);
+    font-weight: 600; line-height: 1.1;
+    color: var(--ink); letter-spacing: -2px; margin-bottom: 20px;
+  }
+  h1 em { font-style: italic; color: var(--blue-600); font-weight: 300; }
+  .page-sub { font-size: 18px; color: var(--ink-muted); font-weight: 300; max-width: 540px; line-height: 1.7; }
+
+  /* ── STICKY SERVICE NAV ── */
+  .service-nav {
+    position: sticky; top: 64px; z-index: 90;
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 5vw;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .service-nav::-webkit-scrollbar { display: none; }
+  .service-nav-inner { display: flex; gap: 0; min-width: max-content; }
+  .snav-item {
+    font-size: 13px; font-weight: 400; color: var(--ink-muted);
+    padding: 16px 20px;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+    white-space: nowrap;
+  }
+  .snav-item:hover { color: var(--blue-600); }
+  .snav-item.active { color: var(--blue-600); border-bottom-color: var(--blue-600); font-weight: 500; }
+
+  /* ── SERVICE BLOCKS ── */
+  .playbook-section { padding: 100px 5vw; }
+  .playbook-section:nth-child(even) { background: var(--surface-2); }
+
+  .service-block { max-width: 1100px; margin: 0 auto; }
+
+  .service-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+    margin-bottom: 64px;
+  }
+
+  .service-num {
+    font-family: 'Fraunces', serif;
+    font-size: 80px; font-weight: 600;
+    color: var(--blue-50); line-height: 1;
+    letter-spacing: -4px;
+    user-select: none;
+    margin-bottom: -12px;
+  }
+  .service-label {
+    font-size: 12px; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--blue-600); margin-bottom: 12px;
+  }
+  .service-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(26px, 3vw, 38px);
+    font-weight: 600; color: var(--ink);
+    letter-spacing: -1.5px; line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .service-title em { font-style: italic; color: var(--blue-600); font-weight: 300; }
+  .service-intro { font-size: 16px; color: var(--ink-muted); font-weight: 300; line-height: 1.75; }
+
+  .service-tagline {
+    font-family: 'Fraunces', serif;
+    font-size: 20px; font-style: italic;
+    font-weight: 300; color: var(--blue-600);
+    border-left: 3px solid var(--blue-200);
+    padding-left: 20px;
+    margin-top: 24px;
+    line-height: 1.5;
+  }
+
+  /* strategy pillars */
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+  .pillar {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 22px;
+    transition: border-color 0.25s, box-shadow 0.25s;
+  }
+  .playbook-section:nth-child(even) .pillar { background: var(--surface); }
+  .pillar:hover { border-color: var(--blue-200); box-shadow: 0 4px 20px rgba(4,44,83,0.06); }
+  .pillar-icon {
+    width: 36px; height: 36px;
+    background: var(--blue-50); border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 14px;
+    border: 1px solid var(--blue-100);
+  }
+  .pillar-icon svg { width: 18px; height: 18px; stroke: var(--blue-600); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .pillar-title { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 8px; }
+  .pillar-desc { font-size: 13px; color: var(--ink-muted); font-weight: 300; line-height: 1.65; }
+
+  /* process steps inline */
+  .process-row {
+    display: flex; gap: 0;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 32px;
+  }
+  .process-cell {
+    flex: 1; padding: 20px 18px;
+    border-right: 1px solid var(--border);
+    position: relative;
+  }
+  .process-cell:last-child { border-right: none; }
+  .process-cell-num {
+    font-family: 'Fraunces', serif;
+    font-size: 22px; font-weight: 600;
+    color: var(--blue-100); line-height: 1; margin-bottom: 6px;
+  }
+  .process-cell-title { font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
+  .process-cell-desc { font-size: 12px; color: var(--ink-muted); font-weight: 300; line-height: 1.5; }
+
+  /* what we don't do */
+  .dos-donts {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    margin-top: 32px;
+  }
+  .dos, .donts {
+    border-radius: 12px; padding: 24px 22px;
+  }
+  .dos { background: #F0FAF4; border: 1px solid rgba(34,139,74,0.15); }
+  .donts { background: #FEF6F6; border: 1px solid rgba(185,28,28,0.1); }
+  .dos-title { font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: #15803d; margin-bottom: 14px; }
+  .donts-title { font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: #b91c1c; margin-bottom: 14px; }
+  .dos ul, .donts ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+  .dos li, .donts li { font-size: 13px; font-weight: 300; color: var(--ink-muted); display: flex; gap: 8px; align-items: flex-start; line-height: 1.5; }
+  .dos li::before { content: '✓'; color: #16a34a; font-weight: 600; flex-shrink: 0; font-size: 13px; }
+  .donts li::before { content: '✕'; color: #dc2626; font-weight: 600; flex-shrink: 0; font-size: 12px; margin-top: 1px; }
+
+  /* outcome chips */
+  .outcomes-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; }
+  .outcome-chip {
+    background: var(--blue-50); border: 1px solid var(--blue-100);
+    border-radius: 8px; padding: 10px 16px;
+    font-size: 13px; color: var(--blue-800); font-weight: 400;
+  }
+  .outcome-chip strong { font-weight: 600; display: block; font-size: 15px; margin-bottom: 2px; }
+
+  /* divider */
+  .section-divider {
+    width: 48px; height: 3px;
+    background: var(--blue-200); border-radius: 2px;
+    margin: 0 0 40px;
+  }
+
+  /* ── CTA ── */
+  .cta-section { background: var(--blue-900); text-align: center; padding: 120px 5vw; position: relative; overflow: hidden; }
+  .cta-section::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(to right, rgba(55,138,221,0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(55,138,221,0.08) 1px, transparent 1px); background-size: 48px 48px; }
+  .cta-content { position: relative; z-index: 1; }
+  .section-label { font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue-600); margin-bottom: 12px; }
+  h2 { font-family: 'Fraunces', serif; font-size: clamp(28px, 4vw, 44px); font-weight: 600; color: var(--ink); letter-spacing: -1.5px; line-height: 1.15; margin-bottom: 16px; }
+  h2 em { font-style: italic; color: var(--blue-600); font-weight: 300; }
+  .cta-section h2 { color: #fff; }
+  .cta-section h2 em { color: var(--blue-200); }
+  .cta-section p { font-size: 17px; color: rgba(255,255,255,0.5); margin: 16px 0 44px; font-weight: 300; }
+  .btn-white { background: #fff; color: var(--blue-800); padding: 16px 40px; border-radius: 8px; font-size: 15px; font-weight: 500; text-decoration: none; display: inline-block; transition: transform 0.15s, box-shadow 0.2s; }
+  .btn-white:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,0,0,0.2); }
+
+  /* ── FOOTER ── */
+  footer { background: var(--surface-2); border-top: 1px solid var(--border); padding: 40px 5vw; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+  .footer-logo { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 600; color: var(--blue-800); }
+  .footer-logo span { color: var(--blue-400); }
+  footer p { font-size: 13px; color: var(--ink-faint); }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a { font-size: 13px; color: var(--ink-muted); text-decoration: none; }
+  .footer-links a:hover { color: var(--blue-600); }
+
+  /* ── ANIMATIONS ── */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1); }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .eyebrow  { opacity: 0; transform: translateY(16px); animation: fadeUp 0.6s cubic-bezier(0.22,1,0.36,1) 0.1s forwards; }
+  h1        { opacity: 0; transform: translateY(20px); animation: fadeUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.22s forwards; }
+  .page-sub { opacity: 0; transform: translateY(16px); animation: fadeUp 0.65s cubic-bezier(0.22,1,0.36,1) 0.36s forwards; }
+  @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+  .pillar { opacity: 0; transform: translateY(20px); transition: opacity 0.55s cubic-bezier(0.22,1,0.36,1), transform 0.55s cubic-bezier(0.22,1,0.36,1), border-color 0.25s, box-shadow 0.25s; }
+  .pillar.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 820px) {
+    .service-header { grid-template-columns: 1fr; gap: 32px; }
+    .dos-donts { grid-template-columns: 1fr; }
+    .process-row { flex-direction: column; }
+    .process-cell { border-right: none; border-bottom: 1px solid var(--border); }
+    .process-cell:last-child { border-bottom: none; }
+    .nav-links .hide-mob { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <a href="meridian-portfolio.html" class="nav-logo">Meridian<span>.</span></a>
+  <div class="nav-links">
+    <a href="meridian-portfolio.html#services" class="hide-mob">Services</a>
+    <a href="meridian-playbook.html" class="active">Playbook</a>
+    <a href="meridian-portfolio.html#contact" class="nav-cta">Get in touch</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="page-hero-content">
+    <div class="eyebrow">Our Playbook</div>
+    <h1>How we think<br>about <em>every</em><br>discipline.</h1>
+    <p class="page-sub">No black boxes. Here's exactly how we approach each service — the strategies we run, the traps we avoid, and what we're always optimising toward.</p>
+  </div>
+</div>
+
+<!-- STICKY NAV -->
+<div class="service-nav">
+  <div class="service-nav-inner">
+    <a href="#seo" class="snav-item">SEO</a>
+    <a href="#digital-marketing" class="snav-item">Digital Marketing</a>
+    <a href="#social-media" class="snav-item">Social Media</a>
+    <a href="#brand-positioning" class="snav-item">Brand Positioning</a>
+    <a href="#graphic-design" class="snav-item">Graphic Design</a>
+    <a href="#campaign" class="snav-item">Campaigns</a>
+    <a href="#social-management" class="snav-item">Social Management</a>
+    <a href="#virtual-assets" class="snav-item">Virtual Assets</a>
+    <a href="#cross-functional" class="snav-item">Cross-functional</a>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════
+     01 — SEO
+══════════════════════════════════════════════ -->
+<section class="playbook-section" id="seo">
+  <div class="service-block">
+    <div class="service-header">
+      <div>
+        <div class="service-num">01</div>
+        <div class="service-label">Search Engine Optimisation</div>
+        <div class="service-title">Rank for what<br><em>actually converts</em></div>
+        <p class="service-intro">Most brands chase traffic. We chase qualified traffic — people who are searching for exactly what you do, at the moment they're ready to act. Our SEO strategy starts with intent, not volume.</p>
+        <div class="service-tagline">"A #1 ranking on the wrong keyword is just expensive vanity."</div>
+      </div>
+      <div>
+        <div class="section-divider"></div>
+        <p style="font-size:15px;color:var(--ink-muted);font-weight:300;line-height:1.8;margin-bottom:20px">We treat SEO as three interlocked systems: technical health (so Google can crawl and trust your site), content architecture (so you cover every stage of the buyer journey), and authority building (so the web signals you're the credible source). All three have to work together — fixing one without the others plateaus fast.</p>
+        <div class="process-row">
+          <div class="process-cell"><div class="process-cell-num">01</div><div class="process-cell-title">Audit</div><div class="process-cell-desc">Technical crawl, content gap, competitor analysis</div></div>
+          <div class="process-cell"><div class="process-cell-num">02</div><div class="process-cell-title">Architecture</div><div class="process-cell-desc">Keyword clusters, pillar pages, internal linking</div></div>
+          <div class="process-cell"><div class="process-cell-num">03</div><div class="process-cell-title">Build</div><div class="process-cell-desc">On-page optimisation, content production</div></div>
+          <div class="process-cell"><div class="process-cell-num">04</div><div class="process-cell-title">Amplify</div><div class="process-cell-desc">Link acquisition, authority signals</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="pillars-grid">
+      <div class="pillar">
+        <div class="pillar-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+        <div class="pillar-title">Technical SEO</div>
+        <div class="pillar-desc">Core Web Vitals, crawlability, schema markup, site architecture, and indexation — the foundation everything else sits on.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+        <div class="pillar-title">Content Strategy</div>
+        <div class="pillar-desc">Intent-mapped content hubs built around the questions your buyers are actually asking at every funnel stage.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div>
+        <div class="pillar-title">Link Building</div>
+        <div class="pillar-desc">Editorial backlinks from relevant, high-authority domains — earned through content and outreach, never bought.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+        <div class="pillar-title">Local & E-E-A-T</div>
+        <div class="pillar-desc">Building the experience, expertise, authority, and trust signals Google rewards — especially critical in regulated categories.</div>
+      </div>
+    </div>
+    <div class="dos-donts">
+      <div class="dos">
+        <div class="dos-title">What we do</div>
+        <ul>
+          <li>Build topical authority through content clusters</li>
+          <li>Fix technical issues before scaling content</li>
+          <li>Target keywords by intent, not just volume</li>
+          <li>Earn links through genuine value, not manipulation</li>
+          <li>Align SEO with broader business conversion goals</li>
+        </ul>
+      </div>
+      <div class="donts">
+        <div class="donts-title">What we never do</div>
+        <ul>
+          <li>Buy links or use PBNs</li>
+          <li>Keyword-stuff content for rankings</li>
+          <li>Chase volume keywords with no conversion intent</li>
+          <li>Ignore mobile and Core Web Vitals</li>
+          <li>Treat SEO as a set-and-forget channel</li>
+        </ul>
+      </div>
+    </div>
+    <div class="outcomes-row">
+      <div class="outcome-chip"><strong>↑ Organic traffic</strong>qualified, intent-matched visitors</div>
+      <div class="outcome-chip"><strong>↑ Domain authority</strong>compounding over time</div>
+      <div class="outcome-chip"><strong>↓ CAC</strong>long-term free traffic channel</div>
+      <div class="outcome-chip"><strong>↑ Visibility</strong>ranked for category-defining terms</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     02 — DIGITAL MARKETING
+══════════════════════════════════════════════ -->
+<section class="playbook-section" id="digital-marketing">
+  <div class="service-block">
+    <div class="service-header">
+      <div>
+        <div class="service-num">02</div>
+        <div class="service-label">Digital Marketing</div>
+        <div class="service-title">Paid media that<br><em>earns its spend</em></div>
+        <p class="service-intro">We run paid campaigns like an investor — every rupee deployed has an expected return, and we cut what doesn't perform fast. No "brand awareness" budgets with no accountability.</p>
+        <div class="service-tagline">"If you can't measure it, you shouldn't be paying for it."</div>
+      </div>
+      <div>
+        <div class="section-divider"></div>
+        <p style="font-size:15px;color:var(--ink-muted);font-weight:300;line-height:1.8;margin-bottom:20px">Our paid strategy is built around full-funnel attribution — we map every ad touchpoint to a conversion event and optimise backward from revenue, not clicks. We run tight creative testing cycles (3–5 variants at a time), and we're obsessive about audience segmentation so you're not paying to reach people who'll never buy.</p>
+        <div class="process-row">
+          <div class="process-cell"><div class="process-cell-num">01</div><div class="process-cell-title">Audit</div><div class="process-cell-desc">Current spend analysis, audience gaps, competitor ads</div></div>
+          <div class="process-cell"><div class="process-cell-num">02</div><div class="process-cell-title">Structure</div><div class="process-cell-desc">Campaign architecture, audience segmentation</div></div>
+          <div class="process-cell"><div class="process-cell-num">03</div><div class="process-cell-title">Test</div><div class="process-cell-desc">Creative variants, landing page A/B</div></div>
+          <div class="process-cell"><div class="process-cell-num">04</div><div class="process-cell-title">Scale</div><div class="process-cell-desc">Winners scaled, losers cut immediately</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="pillars-grid">
+      <div class="pillar">
+        <div class="pillar-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+        <div class="pillar-title">Paid Search (SEM)</div>
+        <div class="pillar-desc">Google & Bing campaigns built around high-intent keywords with tight match types, strong ad copy, and conversion-optimised landing pages.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+        <div class="pillar-title">Performance Max & Display</div>
+        <div class="pillar-desc">Awareness and retargeting campaigns with creative systems that adapt to placement — not one-size banners.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <div class="pillar-title">Attribution & Tracking</div>
+        <div class="pillar-desc">First-party data, GA4 setup, conversion tracking, and cross-channel attribution so you know exactly what's driving revenue.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <div class="pillar-title">Email & Lifecycle</div>
+        <div class="pillar-desc">Automated drip sequences, re-engagement flows, and segmented broadcast campaigns that convert leads into customers.</div>
+      </div>
+    </div>
+    <div class="dos-donts">
+      <div class="dos">
+        <div class="dos-title">What we do</div>
+        <ul>
+          <li>Set clear ROAS and CPL targets before launch</li>
+          <li>Run structured creative testing every 2 weeks</li>
+          <li>Build dedicated landing pages per campaign</li>
+          <li>Align ad messaging with organic brand voice</li>
+          <li>Report weekly with plain-language insights</li>
+        </ul>
+      </div>
+      <div class="donts">
+        <div class="donts-title">What we never do</div>
+        <ul>
+          <li>Inflate reports with vanity metrics</li>
+          <li>Run the same creative for months without testing</li>
+          <li>Send paid traffic to your homepage</li>
+          <li>Set and forget campaigns</li>
+          <li>Ignore post-click experience</li>
+        </ul>
+      </div>
+    </div>
+    <div class="outcomes-row">
+      <div class="outcome-chip"><strong>↑ ROAS</strong>revenue per ad dollar</div>
+      <div class="outcome-chip"><strong>↓ CPL</strong>cost per qualified lead</div>
+      <div class="outcome-chip"><strong>↑ CVR</strong>conversion rate improvement</div>
+      <div class="outcome-chip"><strong>↑ Attribution clarity</strong>know what's working</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     03 — SOCIAL MEDIA MARKETING
+══════════════════════════════════════════════ -->
+<section class="playbook-section" id="social-media">
+  <div class="service-block">
+    <div class="service-header">
+      <div>
+        <div class="service-num">03</div>
+        <div class="service-label">Social Media Marketing</div>
+        <div class="service-title">Build a community,<br>not just a <em>following</em></div>
+        <p class="service-intro">Follower count is a vanity metric. We focus on building audiences that comment, share, save, and buy — communities that trust the brand before they ever visit the website.</p>
+        <div class="service-tagline">"An engaged audience of 10K is worth more than a silent audience of 100K."</div>
+      </div>
+      <div>
+        <div class="section-divider"></div>
+        <p style="font-size:15px;color:var(--ink-muted);font-weight:300;line-height:1.8;margin-bottom:20px">Every platform has its own culture and algorithm logic. We don't repurpose the same content across all channels — we craft platform-native strategies for each. Our social work sits at the intersection of brand storytelling and performance, always pushing toward a measurable outcome whether that's reach, saves, link clicks, or DM conversions.</p>
+        <div class="process-row">
+          <div class="process-cell"><div class="process-cell-num">01</div><div class="process-cell-title">Platform Audit</div><div class="process-cell-desc">Current presence, audience analysis, competitor mapping</div></div>
+          <div class="process-cell"><div class="process-cell-num">02</div><div class="process-cell-title">Strategy</div><div class="process-cell-desc">Platform selection, content pillars, tone of voice</div></div>
+          <div class="process-cell"><div class="process-cell-num">03</div><div class="process-cell-title">Create & Publish</div><div class="process-cell-desc">Content production, scheduling, paid amplification</div></div>
+          <div class="process-cell"><div class="process-cell-num">04</div><div class="process-cell-title">Grow</div><div class="process-cell-desc">Community engagement, creator partnerships, iteration</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="pillars-grid">
+      <div class="pillar">
+        <div class="pillar-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div>
+        <div class="pillar-title">Organic Social Strategy</div>
+        <div class="pillar-desc">Platform-native content — Reels, carousels, Stories, LinkedIn posts — built around formats that each algorithm rewards.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div class="pillar-title">Creator & Influencer</div>
+        <div class="pillar-desc">Nano and micro-influencer partnerships mapped to your audience — briefed, managed, and measured end-to-end.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg></div>
+        <div class="pillar-title">Paid Social</div>
+        <div class="pillar-desc">Meta, LinkedIn, and TikTok ads layered on top of organic — amplifying what's already resonating, not guessing cold.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <div class="pillar-title">Community Management</div>
+        <div class="pillar-desc">Active comment and DM management — every response shaped by your brand voice and a consistent community strategy.</div>
+      </div>
+    </div>
+    <div class="dos-donts">
+      <div class="dos">
+        <div class="dos-title">What we do</div>
+        <ul>
+          <li>Build distinct strategies per platform</li>
+          <li>Prioritise saves and shares over likes</li>
+          <li>Test content formats systematically</li>
+          <li>Align social with the full funnel</li>
+          <li>Maintain a consistent posting cadence</li>
+        </ul>
+      </div>
+      <div class="donts">
+        <div class="donts-title">What we never do</div>
+        <ul>
+          <li>Cross-post identical content everywhere</li>
+          <li>Chase trends that don't fit the brand</li>
+          <li>Buy followers or use engagement pods</li>
+          <li>Go dark for weeks then post in bursts</li>
+          <li>Ignore comments and DMs</li>
+        </ul>
+      </div>
+    </div>
+    <div class="outcomes-row">
+      <div class="outcome-chip"><strong>↑ Engagement rate</strong>real interaction, not vanity</div>
+      <div class="outcome-chip"><strong>↑ Community trust</strong>brand affinity over time</div>
+      <div class="outcome-chip"><strong>↑ Reach</strong>platform-native distribution</div>
+      <div class="outcome-chip"><strong>↑ Social revenue</strong>DM and link-in-bio conversion</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     04 — BRAND POSITIONING
+══════════════════════════════════════════════ -->
+<section class="playbook-section" id="brand-positioning">
+  <div class="service-block">
+    <div class="service-header">
+      <div>
+        <div class="service-num">04</div>
+        <div class="service-label">Brand Positioning</div>
+        <div class="service-title">Be the <em>only obvious</em><br>choice in your category</div>
+        <p class="service-intro">Positioning isn't a tagline. It's the reason a customer chooses you over every alternative — and it has to be true, provable, and consistently expressed across every single touchpoint.</p>
+        <div class="service-tagline">"If your brand could be replaced by a competitor's logo without anyone noticing, you don't have a brand — you have a product."</div>
+      </div>
+      <div>
+        <div class="section-divider"></div>
+        <p style="font-size:15px;color:var(--ink-muted);font-weight:300;line-height:1.8;margin-bottom:20px">We start positioning work with a brutal audit of where you sit in the competitive landscape — what others say, what the market believes, and the whitespace no one is owning. From there we build a messaging architecture: a positioning statement, narrative pillars, tone of voice, and proof points that make every channel speak in one voice.</p>
+        <div class="process-row">
+          <div class="process-cell"><div class="process-cell-num">01</div><div class="process-cell-title">Research</div><div class="process-cell-desc">Competitor messaging audit, audience perception study</div></div>
+          <div class="process-cell"><div class="process-cell-num">02</div><div class="process-cell-title">Positioning</div><div class="process-cell-desc">Whitespace mapping, differentiation framework</div></div>
+          <div class="process-cell"><div class="process-cell-num">03</div><div class="process-cell-title">Messaging</div><div class="process-cell-desc">Tone of voice, narrative pillars, proof points</div></div>
+          <div class="process-cell"><div class="process-cell-num">04</div><div class="process-cell-title">Activate</div><div class="process-cell-desc">Rollout across all channels and touchpoints</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="pillars-grid">
+      <div class="pillar">
+        <div class="pillar-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+        <div class="pillar-title">Competitive Differentiation</div>
+        <div class="pillar-desc">Identify the whitespace — what no competitor is claiming, that you can own credibly and consistently.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+        <div class="pillar-title">Messaging Architecture</div>
+        <div class="pillar-desc">A structured system of brand messages — from one-liner to full narrative — adapted for every audience and channel.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>
+        <div class="pillar-title">Tone of Voice</div>
+        <div class="pillar-desc">A defined, documented voice — how you sound in ads, emails, social posts, customer service, and everything in between.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+        <div class="pillar-title">Market Narrative</div>
+        <div class="pillar-desc">The bigger story your brand tells about the category — shaping how people think about the problem before they think about the solution.</div>
+      </div>
+    </div>
+    <div class="dos-donts">
+      <div class="dos">
+        <div class="dos-title">What we do</div>
+        <ul>
+          <li>Ground positioning in real audience research</li>
+          <li>Find differentiation that's defensible, not just clever</li>
+          <li>Build messaging that scales across all teams</li>
+          <li>Create proof points for every claim</li>
+          <li>Align brand and product messaging together</li>
+        </ul>
+      </div>
+      <div class="donts">
+        <div class="donts-title">What we never do</div>
+        <ul>
+          <li>Write positioning based on gut feeling alone</li>
+          <li>Use generic phrases like "leading" or "best-in-class"</li>
+          <li>Position against a single competitor (fragile)</li>
+          <li>Ignore internal team buy-in</li>
+          <li>Treat positioning as a one-time project</li>
+        </ul>
+      </div>
+    </div>
+    <div class="outcomes-row">
+      <div class="outcome-chip"><strong>↑ Brand clarity</strong>one consistent message</div>
+      <div class="outcome-chip"><strong>↑ Win rate</strong>easier decision for buyers</div>
+      <div class="outcome-chip"><strong>↑ Price premium</strong>perceived value lifts</div>
+      <div class="outcome-chip"><strong>↓ Confusion</strong>across all channels</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     05 — GRAPHIC DESIGN
+══════════════════════════════════════════════ -->
+<section class="playbook-section" id="graphic-design">
+  <div class="service-block">
+    <div class="service-header">
+      <div>
+        <div class="service-num">05</div>
+        <div class="service-label">Graphic Design</div>
+        <div class="service-title">Design that<br><em>works as hard</em><br>as your copy</div>
+        <p class="service-intro">Design isn't decoration — it's communication. Every visual choice (colour, type, layout, whitespace) carries meaning and shapes how the brand is perceived before a single word is read.</p>
+        <div class="service-tagline">"Good design is invisible. Bad design is all you can see."</div>
+      </div>
+      <div>
+        <div class="section-divider"></div>
+        <p style="font-size:15px;color:var(--ink-muted);font-weight:300;line-height:1.8;margin-bottom:20px">We build design systems, not one-off assets. That means every piece we create — from a social post to a pitch deck — draws from the same visual language, creating a brand that feels coherent at scale. We also design for production, which means assets are built to be reused, adapted, and templated by your team without breaking the system.</p>
+        <div class="process-row">
+          <div class="process-cell"><div class="process-cell-num">01</div><div class="process-cell-title">Brand Audit</div><div class="process-cell-desc">Existing assets, inconsistencies, competitive visual landscape</div></div>
+          <div class="process-cell"><div class="process-cell-num">02</div><div class="process-cell-title">System Design</div><div class="process-cell-desc">Colour, type, grid, components, usage rules</div></div>
+          <div class="process-cell"><div class="process-cell-num">03</div><div class="process-cell-title">Asset Production</div><div class="process-cell-desc">Campaign materials, templates, social kits</div></div>
+          <div class="process-cell"><div class="process-cell-num">04</div><div class="process-cell-title">Handoff</div><div class="process-cell-desc">Guidelines, editable files, team training</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="pillars-grid">
+      <div class="pillar">
+        <div class="pillar-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+        <div class="pillar-title">Visual Identity Systems</div>
+        <div class="pillar-desc">Logo, colour palette, typography, grid, iconography — the full system that makes every touchpoint feel like the same brand.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon"><svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></div>
+        <div class="pillar-title">Campaign Creative</div>
+        <div class="pillar-desc">Ad creatives, OOH, digital banners, print — assets designed to perform in their specific context, not just look good in isolation.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+        <div class="pillar-title">Social & Digital Templates</div>
+        <div class="pillar-desc">Editable template systems for Canva, Figma, or Adobe — so your team can produce on-brand content at speed without a designer on call.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+        <div class="pillar-title">Brand Guidelines</div>
+        <div class="pillar-desc">A living document that defines how the brand looks and behaves — shared with every agency, freelancer, and internal team member.</div>
+      </div>
+    </div>
+    <div class="dos-donts">
+      <div class="dos">
+        <div class="dos-title">What we do</div>
+        <ul>
+          <li>Build systems not one-offs</li>
+          <li>Design for the medium (social ≠ print)</li>
+          <li>Deliver production-ready, editable files</li>
+          <li>Align every design decision to brand strategy</li>
+          <li>Create scalable templates your team can use</li>
+        </ul>
+      </div>
+      <div class="donts">
+        <div class="donts-title">What we never do</div>
+        <ul>
+          <li>Design without a brief</li>
+          <li>Treat logo variations as brand identity</li>
+          <li>Deliver files only we can edit</li>
+          <li>Use trend-driven aesthetics with no brand logic</li>
+          <li>Skip accessibility and contrast standards</li>
+        </ul>
+      </div>
+    </div>
+    <div class="outcomes-row">
+      <div class="outcome-chip"><strong>↑ Brand consistency</strong>across every channel</div>
+      <div class="outcome-chip"><strong>↑ Production speed</strong>with templated systems</div>
+      <div class="outcome-chip"><strong>↑ Perceived quality</strong>first impressions matter</div>
+      <div class="outcome-chip"><strong>↓ Design debt</strong>scalable from day one</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     06 — CAMPAIGN PLANNING & EXECUTION
+══════════════════════════════════════════════ -->
+<section class="playbook-section" id="campaign">
+  <div class="service-block">
+    <div class="service-header">
+      <div>
+        <div class="service-num">06</div>
+        <div class="service-label">Campaign Planning & Execution</div>
+        <div class="service-title">From brief to results —<br><em>nothing dropped</em></div>
+        <p class="service-intro">Great campaigns fail in execution more often than strategy. We manage the full lifecycle — from initial brief through creative production, channel activation, and post-campaign analysis — so nothing falls through the cracks.</p>
+        <div class="service-tagline">"A brilliant strategy run poorly is just an expensive lesson."</div>
+      </div>
+      <div>
+        <div class="section-divider"></div>
+        <p style="font-size:15px;color:var(--ink-muted);font-weight:300;line-height:1.8;margin-bottom:20px">We run campaigns as integrated projects — one team, one brief, one shared dashboard. Creative, media, copy, and analytics all move in the same direction and communicate in real time. We establish clear KPIs before a single asset is produced, and we hold ourselves to them in every report.</p>
+        <div class="process-row">
+          <div class="process-cell"><div class="process-cell-num">01</div><div class="process-cell-title">Brief</div><div class="process-cell-desc">Objective setting, KPIs, audience, budget, timeline</div></div>
+          <div class="process-cell"><div class="process-cell-num">02</div><div class="process-cell-title">Concept</div><div class="process-cell-desc">Creative direction, channel plan, messaging map</div></div>
+          <div class="process-cell"><div class="process-cell-num">03</div><div class="process-cell-title">Execute</div><div class="process-cell-desc">Asset production, channel activation, tracking setup</div></div>
+          <div class="process-cell"><div class="process-cell-num">04</div><div class="process-cell-title">Report</div><div class="process-cell-desc">Results vs KPIs, insights, next campaign recommendations</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="pillars-grid">
+      <div class="pillar">
+        <div class="pillar-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+        <div class="pillar-title">Campaign Strategy</div>
+        <div class="pillar-desc">Goal-first planning: we work backward from the outcome to define the right channels, budget split, and creative approach.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <div class="pillar-title">Project Management</div>
+        <div class="pillar-desc">Clear timelines, ownership, and delivery checkpoints — every team member knows what's due and when, every week.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+        <div class="pillar-title">Live Optimisation</div>
+        <div class="pillar-desc">We monitor in-flight and make real-time adjustments — creative swaps, budget reallocation, targeting tweaks — not just end-of-campaign reviews.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <div class="pillar-title">Post-Campaign Analysis</div>
+        <div class="pillar-desc">Every campaign ends with a full debrief — what hit, what missed, and exactly what we'd do differently next time.</div>
+      </div>
+    </div>
+    <div class="dos-donts">
+      <div class="dos">
+        <div class="dos-title">What we do</div>
+        <ul>
+          <li>Define KPIs before creative starts</li>
+          <li>Build integrated cross-channel campaigns</li>
+          <li>Optimise in-flight, not just post-campaign</li>
+          <li>Deliver clear, honest post-campaign reports</li>
+          <li>Document learnings for the next campaign</li>
+        </ul>
+      </div>
+      <div class="donts">
+        <div class="donts-title">What we never do</div>
+        <ul>
+          <li>Launch without a tracking setup</li>
+          <li>Run campaigns on vibes without a brief</li>
+          <li>Wait until the end to flag issues</li>
+          <li>Report only the good numbers</li>
+          <li>Treat every campaign like it's the first</li>
+        </ul>
+      </div>
+    </div>
+    <div class="outcomes-row">
+      <div class="outcome-chip"><strong>↑ On-time delivery</strong>no last-minute chaos</div>
+      <div class="outcome-chip"><strong>↑ Campaign ROAS</strong>optimised throughout</div>
+      <div class="outcome-chip"><strong>↑ Team alignment</strong>one shared source of truth</div>
+      <div class="outcome-chip"><strong>↑ Learning velocity</strong>every campaign builds on the last</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     07 — SOCIAL MEDIA MANAGEMENT
+══════════════════════════════════════════════ -->
+<section class="playbook-section" id="social-management">
+  <div class="service-block">
+    <div class="service-header">
+      <div>
+        <div class="service-num">07</div>
+        <div class="service-label">Social Management & Governance</div>
+        <div class="service-title">Your brand's voice —<br><em>consistent, always</em></div>
+        <p class="service-intro">Social management isn't just about posting. It's about maintaining a brand presence that feels alive, responsive, and on-message — every day, across every platform, even when things move fast.</p>
+        <div class="service-tagline">"Your social feed is the most public version of your brand. It should never look like no one's minding the shop."</div>
+      </div>
+      <div>
+        <div class="section-divider"></div>
+        <p style="font-size:15px;color:var(--ink-muted);font-weight:300;line-height:1.8;margin-bottom:20px">We build content governance frameworks that give your social a spine — content pillars, approval workflows, posting cadences, and escalation processes. This means the day-to-day runs smoothly and any team member (or agency) can create content that feels unmistakably on-brand.</p>
+        <div class="process-row">
+          <div class="process-cell"><div class="process-cell-num">01</div><div class="process-cell-title">Audit</div><div class="process-cell-desc">Current presence, tone analysis, competitor review</div></div>
+          <div class="process-cell"><div class="process-cell-num">02</div><div class="process-cell-title">Framework</div><div class="process-cell-desc">Content pillars, tone guidelines, approval workflow</div></div>
+          <div class="process-cell"><div class="process-cell-num">03</div><div class="process-cell-title">Calendar</div><div class="process-cell-desc">Monthly content calendar, scheduled publishing</div></div>
+          <div class="process-cell"><div class="process-cell-num">04</div><div class="process-cell-title">Govern</div><div class="process-cell-desc">Community management, reporting, monthly review</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="pillars-grid">
+      <div class="pillar">
+        <div class="pillar-icon"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>
+        <div class="pillar-title">Content Governance</div>
+        <div class="pillar-desc">Written rules for what the brand does and doesn't post — covering topics, tone, approval chains, and crisis protocols.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <div class="pillar-title">Content Calendar</div>
+        <div class="pillar-desc">A rolling 4-week content plan — mapped to campaigns, seasonal moments, and platform-specific best-posting windows.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <div class="pillar-title">Community Management</div>
+        <div class="pillar-desc">Timely, on-brand responses to comments, DMs, and mentions — including escalation handling for complaints or sensitive topics.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div class="pillar-title">Compliance Alignment</div>
+        <div class="pillar-desc">Especially critical in regulated sectors — we build content processes that route through compliance review without creating bottlenecks.</div>
+      </div>
+    </div>
+    <div class="dos-donts">
+      <div class="dos">
+        <div class="dos-title">What we do</div>
+        <ul>
+          <li>Build documented governance frameworks</li>
+          <li>Plan content 4 weeks in advance</li>
+          <li>Respond to every comment and DM</li>
+          <li>Flag sensitive topics before publishing</li>
+          <li>Report monthly with actionable insights</li>
+        </ul>
+      </div>
+      <div class="donts">
+        <div class="donts-title">What we never do</div>
+        <ul>
+          <li>Post without an approval process</li>
+          <li>Ignore negative comments or DMs</li>
+          <li>Post reactively without context</li>
+          <li>Go silent during a brand crisis</li>
+          <li>Use the same voice for B2B and B2C channels</li>
+        </ul>
+      </div>
+    </div>
+    <div class="outcomes-row">
+      <div class="outcome-chip"><strong>↑ Consistency</strong>every post, every platform</div>
+      <div class="outcome-chip"><strong>↑ Response rate</strong>community feels heard</div>
+      <div class="outcome-chip"><strong>↓ Brand risk</strong>governance prevents mistakes</div>
+      <div class="outcome-chip"><strong>↑ Team efficiency</strong>clear process, less rework</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     08 — VIRTUAL ASSETS BRAND POSITIONING
+══════════════════════════════════════════════ -->
+<section class="playbook-section" id="virtual-assets">
+  <div class="service-block">
+    <div class="service-header">
+      <div>
+        <div class="service-num">08</div>
+        <div class="service-label">Virtual Assets Brand Positioning</div>
+        <div class="service-title">Trust-first branding<br>for <em>regulated digital</em><br>asset spaces</div>
+        <p class="service-intro">The virtual assets space has a trust problem. Most brands in this category either over-promise or under-communicate. We help digital asset platforms build brands that are credible with institutional audiences while still being accessible to retail.</p>
+        <div class="service-tagline">"In a space full of hype, the brand that communicates with the most clarity wins."</div>
+      </div>
+      <div>
+        <div class="section-divider"></div>
+        <p style="font-size:15px;color:var(--ink-muted);font-weight:300;line-height:1.8;margin-bottom:20px">We understand the compliance constraints, the regulatory sensitivity, and the dual audiences (retail and institutional) that most virtual asset brands have to serve simultaneously. Our positioning work for this space is always built with Compliance in the room — not as an afterthought.</p>
+        <div class="process-row">
+          <div class="process-cell"><div class="process-cell-num">01</div><div class="process-cell-title">Landscape</div><div class="process-cell-desc">Regulatory context, competitor positioning, trust signals audit</div></div>
+          <div class="process-cell"><div class="process-cell-num">02</div><div class="process-cell-title">Position</div><div class="process-cell-desc">Trust architecture, institutional vs retail messaging</div></div>
+          <div class="process-cell"><div class="process-cell-num">03</div><div class="process-cell-title">Govern</div><div class="process-cell-desc">Compliance-aligned content guidelines</div></div>
+          <div class="process-cell"><div class="process-cell-num">04</div><div class="process-cell-title">Activate</div><div class="process-cell-desc">Coordinated rollout with Product, Compliance, Ops</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="pillars-grid">
+      <div class="pillar">
+        <div class="pillar-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div class="pillar-title">Compliance-aware Messaging</div>
+        <div class="pillar-desc">Brand communications that pass legal review without losing their impact — built with your compliance team, not around them.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+        <div class="pillar-title">Dual-audience Strategy</div>
+        <div class="pillar-desc">Separate but coherent messaging tracks for retail and institutional audiences — same brand, calibrated differently for each.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+        <div class="pillar-title">Trust Architecture</div>
+        <div class="pillar-desc">Proof points, transparency signals, regulatory disclosures, and audit credentials woven into brand communications naturally.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div class="pillar-title">Community & Education</div>
+        <div class="pillar-desc">Content strategies that educate the market on what you do, build organic trust, and position the brand as the informed voice in the category.</div>
+      </div>
+    </div>
+    <div class="dos-donts">
+      <div class="dos">
+        <div class="dos-title">What we do</div>
+        <ul>
+          <li>Build Compliance into the process from day one</li>
+          <li>Differentiate on transparency and credibility</li>
+          <li>Craft separate institutional and retail tracks</li>
+          <li>Educate the audience before selling to them</li>
+          <li>Avoid hype-driven language entirely</li>
+        </ul>
+      </div>
+      <div class="donts">
+        <div class="donts-title">What we never do</div>
+        <ul>
+          <li>Use return guarantees or performance promises</li>
+          <li>Minimise regulatory language for aesthetics</li>
+          <li>Ignore market sentiment and regulatory news</li>
+          <li>Treat Web3 and TradFi audiences identically</li>
+          <li>Launch without legal sign-off on core claims</li>
+        </ul>
+      </div>
+    </div>
+    <div class="outcomes-row">
+      <div class="outcome-chip"><strong>↑ Institutional trust</strong>credibility with serious money</div>
+      <div class="outcome-chip"><strong>↑ Regulatory confidence</strong>compliant from day one</div>
+      <div class="outcome-chip"><strong>↑ Retail clarity</strong>accessible without dumbing down</div>
+      <div class="outcome-chip"><strong>↓ Brand risk</strong>no compliance landmines</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     09 — CROSS-FUNCTIONAL COORDINATION
+══════════════════════════════════════════════ -->
+<section class="playbook-section" id="cross-functional">
+  <div class="service-block">
+    <div class="service-header">
+      <div>
+        <div class="service-num">09</div>
+        <div class="service-label">Cross-functional Coordination</div>
+        <div class="service-title">Marketing that works<br><em>with the business</em>,<br>not around it</div>
+        <p class="service-intro">The best marketing campaigns fail because Compliance didn't approve the copy, Product changed the feature, or Operations couldn't fulfil the demand. We sit in the gap between departments and keep everything moving.</p>
+        <div class="service-tagline">"Marketing doesn't operate in a vacuum. Neither do we."</div>
+      </div>
+      <div>
+        <div class="section-divider"></div>
+        <p style="font-size:15px;color:var(--ink-muted);font-weight:300;line-height:1.8;margin-bottom:20px">We've built enough campaigns to know that the biggest risk isn't creative quality — it's internal misalignment. That's why every engagement we run includes a clear RACI, a shared communication cadence with stakeholders, and escalation paths that prevent last-minute surprises from derailing a launch.</p>
+        <div class="process-row">
+          <div class="process-cell"><div class="process-cell-num">01</div><div class="process-cell-title">Map</div><div class="process-cell-desc">Stakeholder map, dependencies, approval chains</div></div>
+          <div class="process-cell"><div class="process-cell-num">02</div><div class="process-cell-title">Align</div><div class="process-cell-desc">Kickoff with all teams, shared briefs, RACI matrix</div></div>
+          <div class="process-cell"><div class="process-cell-num">03</div><div class="process-cell-title">Run</div><div class="process-cell-desc">Weekly syncs, shared dashboard, real-time updates</div></div>
+          <div class="process-cell"><div class="process-cell-num">04</div><div class="process-cell-title">Close</div><div class="process-cell-desc">Post-launch review with all teams, documented learnings</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="pillars-grid">
+      <div class="pillar">
+        <div class="pillar-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>
+        <div class="pillar-title">Compliance Integration</div>
+        <div class="pillar-desc">We build Compliance review into the content calendar — not as a blocker, but as a structured step with clear SLAs on both sides.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+        <div class="pillar-title">Product Alignment</div>
+        <div class="pillar-desc">Campaign messaging stays current with product reality — no promises made about features that aren't live, no launches that catch Product by surprise.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div class="pillar-title">Operations Readiness</div>
+        <div class="pillar-desc">We check that Ops can handle what Marketing is about to promise — demand generation without fulfilment capacity is a brand crisis waiting to happen.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <div class="pillar-title">Shared Reporting</div>
+        <div class="pillar-desc">One live dashboard visible to all stakeholders — no siloed metrics, no "Marketing says X, Finance says Y" misalignments.</div>
+      </div>
+    </div>
+    <div class="dos-donts">
+      <div class="dos">
+        <div class="dos-title">What we do</div>
+        <ul>
+          <li>Map all stakeholders before a project starts</li>
+          <li>Build approval workflows into every timeline</li>
+          <li>Communicate proactively, not reactively</li>
+          <li>Document decisions and ownership clearly</li>
+          <li>Flag risks early — never surprise a stakeholder</li>
+        </ul>
+      </div>
+      <div class="donts">
+        <div class="donts-title">What we never do</div>
+        <ul>
+          <li>Launch without sign-off from relevant teams</li>
+          <li>Keep compliance or legal as a last step</li>
+          <li>Create separate "marketing" and "real" versions of a plan</li>
+          <li>Blame other departments for delays</li>
+          <li>Skip the post-launch cross-team debrief</li>
+        </ul>
+      </div>
+    </div>
+    <div class="outcomes-row">
+      <div class="outcome-chip"><strong>↑ Launch success rate</strong>no last-minute blockers</div>
+      <div class="outcome-chip"><strong>↑ Stakeholder trust</strong>teams want to work with us</div>
+      <div class="outcome-chip"><strong>↓ Rework</strong>clear ownership from the start</div>
+      <div class="outcome-chip"><strong>↑ Speed</strong>alignment removes bottlenecks</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-content">
+    <div class="section-label" style="color:var(--blue-200)">Ready to apply this?</div>
+    <h2>Let's put the<br><em>playbook to work.</em></h2>
+    <p>Tell us your challenge. We'll tell you which plays apply.</p>
+    <a href="mailto:hello@meridian.co" class="btn-white">Start a conversation</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Meridian<span>.</span></div>
+  <p>© 2025 Meridian Marketing. All rights reserved.</p>
+  <div class="footer-links">
+    <a href="meridian-portfolio.html">Home</a>
+    <a href="meridian-portfolio.html#services">Services</a>
+    <a href="meridian-playbook.html">Playbook</a>
+    <a href="meridian-portfolio.html#contact">Contact</a>
+  </div>
+</footer>
+
+<script>
+  /* Nav scroll */
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 24), { passive: true });
+
+  /* Sticky subnav active state */
+  const snavItems = document.querySelectorAll('.snav-item');
+  const sections = [...snavItems].map(a => document.querySelector(a.getAttribute('href')));
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(sec => {
+      if (sec && window.scrollY >= sec.offsetTop - 140) current = '#' + sec.id;
+    });
+    snavItems.forEach(a => a.classList.toggle('active', a.getAttribute('href') === current));
+  }, { passive: true });
+
+  /* Scroll reveals */
+  function observe(selector, stagger = 0) {
+    const els = document.querySelectorAll(selector);
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const idx = [...els].indexOf(e.target);
+          setTimeout(() => e.target.classList.add('visible'), idx * stagger);
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    els.forEach(el => io.observe(el));
+  }
+
+  /* Reveal headings and text */
+  document.querySelectorAll('.service-num, .service-label, .service-title, .service-intro, .service-tagline, .process-row, .dos-donts, .outcomes-row, .section-divider').forEach(el => {
+    el.classList.add('reveal');
+  });
+  observe('.service-num', 0);
+  observe('.service-label', 0);
+  observe('.service-title', 0);
+  observe('.service-intro', 40);
+  observe('.service-tagline', 0);
+  observe('.process-row', 0);
+  observe('.dos-donts', 0);
+  observe('.outcomes-row', 0);
+  observe('.section-divider', 0);
+
+  /* Pillars stagger */
+  document.querySelectorAll('.playbook-section').forEach(section => {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.querySelectorAll('.pillar').forEach((p, i) => {
+            setTimeout(() => p.classList.add('visible'), i * 80);
+          });
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.05 });
+    io.observe(section);
+  });
+
+  /* CTA */
+  const cta = document.querySelector('.cta-content');
+  if (cta) {
+    cta.classList.add('reveal');
+    new IntersectionObserver((e) => { if (e[0].isIntersecting) { cta.classList.add('visible'); } }, { threshold: 0.2 }).observe(cta);
+  }
+</script>
+</body>
+</html>

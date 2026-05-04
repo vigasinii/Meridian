@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meridian — Marketing Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --blue-50: #E6F1FB;
+    --blue-100: #B5D4F4;
+    --blue-200: #85B7EB;
+    --blue-400: #378ADD;
+    --blue-600: #185FA5;
+    --blue-800: #0C447C;
+    --blue-900: #042C53;
+    --ink: #0A0F1E;
+    --ink-muted: #5A6278;
+    --ink-faint: #9AA0B0;
+    --surface: #FFFFFF;
+    --surface-2: #F7F9FC;
+    --surface-3: #EEF3FA;
+    --border: rgba(23,95,165,0.12);
+    --border-strong: rgba(23,95,165,0.25);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--surface);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5vw;
+    height: 64px;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--blue-800);
+    letter-spacing: -0.5px;
+  }
+  .nav-logo span { color: var(--blue-400); }
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--ink-muted);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--blue-600); }
+  .nav-cta {
+    background: var(--blue-600);
+    color: #fff !important;
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-weight: 500 !important;
+    font-size: 13px !important;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--blue-800) !important; color: #fff !important; }
+
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 120px 5vw 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, #EEF3FA 0%, #FFFFFF 55%, #E6F1FB 100%);
+    z-index: 0;
+  }
+  .hero-grid-lines {
+    position: absolute; inset: 0; z-index: 0;
+    background-image:
+      linear-gradient(to right, rgba(55,138,221,0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(55,138,221,0.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-blob {
+    position: absolute;
+    width: 600px; height: 600px;
+    top: -100px; right: -100px;
+    background: radial-gradient(circle, rgba(55,138,221,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+    z-index: 0;
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 720px; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--blue-50);
+    border: 1px solid var(--border-strong);
+    color: var(--blue-600);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 28px;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--blue-400);
+  }
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(40px, 6vw, 68px);
+    font-weight: 600;
+    line-height: 1.1;
+    color: var(--ink);
+    letter-spacing: -2px;
+    margin-bottom: 24px;
+  }
+  h1 em {
+    font-style: italic;
+    color: var(--blue-600);
+    font-weight: 300;
+  }
+  .hero-sub {
+    font-size: 18px;
+    color: var(--ink-muted);
+    max-width: 520px;
+    line-height: 1.7;
+    margin-bottom: 40px;
+    font-weight: 300;
+  }
+  .hero-actions { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--blue-600);
+    color: #fff;
+    padding: 14px 32px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--blue-800); transform: translateY(-1px); }
+  .btn-ghost {
+    color: var(--blue-600);
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 6px;
+    border-bottom: 1.5px solid var(--blue-200);
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .btn-ghost:hover { color: var(--blue-800); border-color: var(--blue-400); }
+
+  .stats-strip {
+    background: var(--blue-900);
+    padding: 40px 5vw;
+    display: flex;
+    justify-content: space-around;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Fraunces', serif;
+    font-size: 40px;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1;
+    letter-spacing: -1px;
+  }
+  .stat-num span { color: var(--blue-200); }
+  .stat-label {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    margin-top: 6px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  section { padding: 100px 5vw; }
+  .section-label {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--blue-600);
+    margin-bottom: 12px;
+  }
+  h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: -1.5px;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  h2 em { font-style: italic; color: var(--blue-600); font-weight: 300; }
+  .section-sub { font-size: 17px; color: var(--ink-muted); max-width: 520px; font-weight: 300; margin-bottom: 64px; }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .service-card {
+    background: var(--surface);
+    padding: 36px 32px;
+    transition: background 0.25s;
+    cursor: default;
+  }
+  .service-card:hover { background: var(--surface-3); }
+  .service-icon {
+    width: 48px; height: 48px;
+    background: var(--blue-50);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 20px;
+    border: 1px solid var(--blue-100);
+  }
+  .service-icon svg { width: 22px; height: 22px; stroke: var(--blue-600); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .service-title { font-size: 17px; font-weight: 500; color: var(--ink); margin-bottom: 10px; }
+  .service-desc { font-size: 14px; color: var(--ink-muted); line-height: 1.65; font-weight: 300; }
+  .service-tag {
+    display: inline-block;
+    margin-top: 20px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: var(--blue-600);
+    background: var(--blue-50);
+    border: 1px solid var(--blue-100);
+    padding: 4px 10px;
+    border-radius: 100px;
+    text-transform: uppercase;
+  }
+
+  .process-section { background: var(--surface-2); }
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0;
+    position: relative;
+  }
+  .process-steps::before {
+    content: '';
+    position: absolute;
+    top: 28px; left: 5%; right: 5%;
+    height: 1px;
+    background: var(--blue-100);
+    z-index: 0;
+  }
+  .process-step { text-align: center; padding: 0 20px; position: relative; z-index: 1; }
+  .step-num {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 2px solid var(--blue-200);
+    color: var(--blue-600);
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+    transition: all 0.25s;
+  }
+  .process-step:hover .step-num { background: var(--blue-600); color: #fff; border-color: var(--blue-600); }
+  .step-title { font-size: 15px; font-weight: 500; color: var(--ink); margin-bottom: 8px; }
+  .step-desc { font-size: 13px; color: var(--ink-muted); font-weight: 300; }
+
+  .spec-section { background: var(--surface); }
+  .spec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .spec-visual {
+    background: var(--blue-900);
+    border-radius: 16px;
+    padding: 48px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .spec-visual::before {
+    content: '';
+    position: absolute; top: -60px; right: -60px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(55,138,221,0.3) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .spec-item {
+    display: flex; align-items: center; gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    position: relative; z-index: 1;
+  }
+  .spec-item:last-child { border-bottom: none; }
+  .spec-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--blue-400); flex-shrink: 0; }
+  .spec-name { font-size: 15px; color: rgba(255,255,255,0.9); font-weight: 400; flex: 1; }
+  .spec-bar-wrap { width: 100px; height: 4px; background: rgba(255,255,255,0.12); border-radius: 2px; }
+  .spec-bar { height: 100%; border-radius: 2px; background: var(--blue-400); }
+  .spec-text h3 { font-family: 'Fraunces', serif; font-size: 28px; font-weight: 600; letter-spacing: -1px; margin-bottom: 16px; }
+  .spec-list { list-style: none; margin-top: 28px; display: flex; flex-direction: column; gap: 12px; }
+  .spec-list li {
+    display: flex; align-items: flex-start; gap: 12px;
+    font-size: 15px; color: var(--ink-muted); font-weight: 300;
+  }
+  .spec-list li::before { content: '→'; color: var(--blue-400); font-weight: 500; flex-shrink: 0; margin-top: 1px; }
+
+  .cta-section {
+    background: var(--blue-900);
+    text-align: center;
+    padding: 120px 5vw;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-section::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(to right, rgba(55,138,221,0.08) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(55,138,221,0.08) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+  .cta-content { position: relative; z-index: 1; }
+  .cta-section h2 { color: #fff; margin-bottom: 16px; }
+  .cta-section h2 em { color: var(--blue-200); }
+  .cta-section p { font-size: 17px; color: rgba(255,255,255,0.55); margin-bottom: 44px; font-weight: 300; }
+  .btn-white {
+    background: #fff;
+    color: var(--blue-800);
+    padding: 16px 40px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-block;
+    transition: transform 0.15s, box-shadow 0.2s;
+  }
+  .btn-white:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,0,0,0.2); }
+
+  footer {
+    background: var(--surface-2);
+    border-top: 1px solid var(--border);
+    padding: 40px 5vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .footer-logo { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 600; color: var(--blue-800); }
+  .footer-logo span { color: var(--blue-400); }
+  footer p { font-size: 13px; color: var(--ink-faint); }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a { font-size: 13px; color: var(--ink-muted); text-decoration: none; }
+  .footer-links a:hover { color: var(--blue-600); }
+
+  @media (max-width: 760px) {
+    .nav-links { display: none; }
+    .spec-grid { grid-template-columns: 1fr; }
+    .spec-visual { order: -1; }
+    .process-steps::before { display: none; }
+  }
+
+  /* ── Entrance animation base ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Hero staggered entrance */
+  .hero-eyebrow  { opacity: 0; transform: translateY(20px); animation: fadeUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.1s forwards; }
+  h1             { opacity: 0; transform: translateY(24px); animation: fadeUp 0.75s cubic-bezier(0.22,1,0.36,1) 0.25s forwards; }
+  .hero-sub      { opacity: 0; transform: translateY(20px); animation: fadeUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.4s forwards; }
+  .hero-actions  { opacity: 0; transform: translateY(16px); animation: fadeUp 0.65s cubic-bezier(0.22,1,0.36,1) 0.55s forwards; }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Staggered service cards */
+  .service-card {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1),
+                transform 0.6s cubic-bezier(0.22,1,0.36,1),
+                background 0.25s;
+  }
+  .service-card.visible { opacity: 1; transform: translateY(0); }
+
+  /* Process step stagger */
+  .process-step {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1),
+                transform 0.6s cubic-bezier(0.22,1,0.36,1);
+  }
+  .process-step.visible { opacity: 1; transform: translateY(0); }
+
+  /* Spec bars animate width from 0 */
+  .spec-bar {
+    width: 0 !important;
+    transition: width 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .spec-bar.animated { width: var(--target-w) !important; }
+
+  /* Nav scroll state */
+  nav { transition: box-shadow 0.3s, background 0.3s; }
+  nav.scrolled {
+    box-shadow: 0 2px 20px rgba(4,44,83,0.08);
+    background: rgba(255,255,255,0.97);
+  }
+
+  /* CTA section reveal */
+  .cta-content { opacity: 0; transform: translateY(32px); transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1); }
+  .cta-content.visible { opacity: 1; transform: translateY(0); }
+
+  /* Stat counter fade-in */
+  .stat { opacity: 0; transform: translateY(20px); transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1); }
+  .stat.visible { opacity: 1; transform: translateY(0); }
+
+  /* Footer */
+  footer > * { opacity: 0; transform: translateY(16px); transition: opacity 0.5s ease, transform 0.5s ease; }
+  footer.visible > * { opacity: 1; transform: translateY(0); }
+  footer.visible > *:nth-child(2) { transition-delay: 0.1s; }
+  footer.visible > *:nth-child(3) { transition-delay: 0.2s; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Meridian<span>.</span></div>
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="#process">How we work</a>
+    <a href="#specialisation">Expertise</a>
+    <a href="meridian-playbook.html">Playbook</a>
+    <a href="#contact" class="nav-cta">Get in touch</a>
+  </div>
+</nav>
+
+<section class="hero" style="padding-top:140px">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-lines"></div>
+  <div class="hero-blob"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Full-spectrum marketing</div>
+    <h1>We make brands<br><em>impossible</em><br>to ignore.</h1>
+    <p class="hero-sub">From search visibility to social presence, we build the connective tissue between your brand and the people who matter most.</p>
+    <div class="hero-actions">
+      <a href="#services" class="btn-primary">Explore our services</a>
+      <a href="#process" class="btn-ghost">See how we work →</a>
+    </div>
+  </div>
+</section>
+
+<div class="stats-strip">
+  <div class="stat">
+    <div class="stat-num">120<span>+</span></div>
+    <div class="stat-label">Brands Elevated</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">8<span>×</span></div>
+    <div class="stat-label">Avg. ROAS</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">3.4<span>M</span></div>
+    <div class="stat-label">Organic impressions / mo</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">97<span>%</span></div>
+    <div class="stat-label">Client retention</div>
+  </div>
+</div>
+
+<section id="services">
+  <div class="section-label">What we do</div>
+  <h2>Services built for<br><em>real growth</em></h2>
+  <p class="section-sub">Every engagement is tailored. No templates, no cookie-cutter packages — just strategic work that compounds.</p>
+
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </div>
+      <div class="service-title">SEO & Organic Visibility</div>
+      <div class="service-desc">Technical audits, keyword architecture, content strategy, and link building — engineered to rank and retain.</div>
+      <span class="service-tag">Search</span>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+      </div>
+      <div class="service-title">Digital Marketing</div>
+      <div class="service-desc">Performance campaigns across paid search, display, and retargeting — with attribution that actually makes sense.</div>
+      <span class="service-tag">Paid</span>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <div class="service-title">Social Media Marketing</div>
+      <div class="service-desc">Community-first strategies, paid social amplification, and influencer alignment that builds real audiences.</div>
+      <span class="service-tag">Social</span>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      <div class="service-title">Brand Positioning</div>
+      <div class="service-desc">Narrative architecture, competitive differentiation, and messaging frameworks that make your brand the only logical choice.</div>
+      <span class="service-tag">Strategy</span>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+      </div>
+      <div class="service-title">Graphic Design</div>
+      <div class="service-desc">Visual identity systems, campaign assets, and production-ready design across every channel and format.</div>
+      <span class="service-tag">Creative</span>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+      </div>
+      <div class="service-title">Campaign Planning & Execution</div>
+      <div class="service-desc">End-to-end campaign management from brief to reporting — creative, media, and measurement in one unified workflow.</div>
+      <span class="service-tag">Campaigns</span>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
+      </div>
+      <div class="service-title">Social Management & Governance</div>
+      <div class="service-desc">Content calendars, community management, tone-of-voice guidelines, and compliance-aware content frameworks.</div>
+      <span class="service-tag">Management</span>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      </div>
+      <div class="service-title">Virtual Assets Brand Positioning</div>
+      <div class="service-desc">Specialised brand strategy for digital and virtual asset spaces — regulatory-aware, trust-first, built for emerging markets.</div>
+      <span class="service-tag">Web3 / Digital</span>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+      </div>
+      <div class="service-title">Cross-functional Coordination</div>
+      <div class="service-desc">Seamless collaboration with Compliance, Product, and Operations teams — ensuring every campaign is airtight before it launches.</div>
+      <span class="service-tag">Operations</span>
+    </div>
+  </div>
+</section>
+
+<section id="process" class="process-section">
+  <div class="section-label">How we work</div>
+  <h2>A process that <em>removes</em> guesswork</h2>
+  <p class="section-sub">Four stages. Every time. No matter the scope.</p>
+
+  <div class="process-steps">
+    <div class="process-step">
+      <div class="step-num">01</div>
+      <div class="step-title">Discover</div>
+      <div class="step-desc">Audit, research, and deep-dive into your brand, audience, and competitive landscape.</div>
+    </div>
+    <div class="process-step">
+      <div class="step-num">02</div>
+      <div class="step-title">Strategise</div>
+      <div class="step-desc">Build a full-channel strategy with clear KPIs, audience segments, and messaging pillars.</div>
+    </div>
+    <div class="process-step">
+      <div class="step-num">03</div>
+      <div class="step-title">Execute</div>
+      <div class="step-desc">Create, launch, and manage across all channels with precision and compliance awareness.</div>
+    </div>
+    <div class="process-step">
+      <div class="step-num">04</div>
+      <div class="step-title">Optimise</div>
+      <div class="step-desc">Analyse, report, and iterate — turning insights into compounding advantage.</div>
+    </div>
+  </div>
+</section>
+
+<section id="specialisation" class="spec-section">
+  <div class="spec-grid">
+    <div class="spec-visual">
+      <div class="spec-item"><div class="spec-dot"></div><div class="spec-name">Brand Strategy</div><div class="spec-bar-wrap"><div class="spec-bar" style="width:95%"></div></div></div>
+      <div class="spec-item"><div class="spec-dot"></div><div class="spec-name">SEO & Content</div><div class="spec-bar-wrap"><div class="spec-bar" style="width:90%"></div></div></div>
+      <div class="spec-item"><div class="spec-dot"></div><div class="spec-name">Paid Media</div><div class="spec-bar-wrap"><div class="spec-bar" style="width:85%"></div></div></div>
+      <div class="spec-item"><div class="spec-dot"></div><div class="spec-name">Social Growth</div><div class="spec-bar-wrap"><div class="spec-bar" style="width:88%"></div></div></div>
+      <div class="spec-item"><div class="spec-dot"></div><div class="spec-name">Visual Identity</div><div class="spec-bar-wrap"><div class="spec-bar" style="width:80%"></div></div></div>
+      <div class="spec-item"><div class="spec-dot"></div><div class="spec-name">Virtual Assets</div><div class="spec-bar-wrap"><div class="spec-bar" style="width:78%"></div></div></div>
+    </div>
+    <div class="spec-text">
+      <div class="section-label">Our edge</div>
+      <h3>We operate where <em>strategy meets execution</em></h3>
+      <p style="font-size:15px;color:var(--ink-muted);font-weight:300;margin-top:12px">Most agencies stop at the deck. We stay until the results are in — coordinating across your internal teams to make sure nothing falls through the cracks.</p>
+      <ul class="spec-list">
+        <li>Compliance-aware content governance</li>
+        <li>Embedded cross-functional coordination</li>
+        <li>Virtual assets & digital brand expertise</li>
+        <li>Full-funnel performance accountability</li>
+        <li>Unified reporting across all channels</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="cta-section">
+  <div class="cta-content">
+    <div class="section-label" style="color:var(--blue-200)">Ready to grow?</div>
+    <h2>Let's build something<br><em>worth remembering.</em></h2>
+    <p>Tell us about your brand. We'll tell you what's possible.</p>
+    <a href="mailto:hello@meridian.co" class="btn-white">Start a conversation</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Meridian<span>.</span></div>
+  <p>© 2025 Meridian Marketing. All rights reserved.</p>
+  <div class="footer-links">
+    <a href="#services">Services</a>
+    <a href="#process">Process</a>
+    <a href="#contact">Contact</a>
+  </div>
+</footer>
+
+<script>
+  /* ── Nav scroll shadow ── */
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 24);
+  }, { passive: true });
+
+  /* ── Generic IntersectionObserver factory ── */
+  function observe(selector, onVisible, options = {}) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { onVisible(e.target); io.unobserve(e.target); } });
+    }, { threshold: 0.15, ...options });
+    document.querySelectorAll(selector).forEach(el => io.observe(el));
+  }
+
+  /* ── Section-level reveals ── */
+  ['section-label','section-sub','.spec-text h3','.spec-text p','.spec-list'].forEach(sel => {
+    observe(sel, el => { el.classList.add('reveal','visible'); });
+  });
+
+  document.querySelectorAll('.section-label,.section-sub').forEach(el => {
+    el.classList.add('reveal');
+  });
+  observe('.section-label', el => el.classList.add('visible'));
+  observe('.section-sub',   el => el.classList.add('visible'));
+
+  /* ── h2 reveals ── */
+  document.querySelectorAll('h2').forEach(el => el.classList.add('reveal'));
+  observe('h2', el => el.classList.add('visible'));
+
+  /* ── Stats strip ── */
+  observe('.stat', (el) => {
+    el.classList.add('visible');
+  });
+  /* stagger stats */
+  (function() {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          document.querySelectorAll('.stat').forEach((s, i) => {
+            setTimeout(() => s.classList.add('visible'), i * 100);
+          });
+          io.disconnect();
+        }
+      });
+    }, { threshold: 0.2 });
+    const strip = document.querySelector('.stats-strip');
+    if (strip) io.observe(strip);
+  })();
+
+  /* ── Service cards staggered ── */
+  (function() {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const cards = e.target.querySelectorAll('.service-card');
+          cards.forEach((c, i) => setTimeout(() => c.classList.add('visible'), i * 60));
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.05 });
+    const grid = document.querySelector('.services-grid');
+    if (grid) io.observe(grid);
+  })();
+
+  /* ── Process steps staggered ── */
+  (function() {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          document.querySelectorAll('.process-step').forEach((s, i) => {
+            setTimeout(() => s.classList.add('visible'), i * 120);
+          });
+          io.disconnect();
+        }
+      });
+    }, { threshold: 0.2 });
+    const steps = document.querySelector('.process-steps');
+    if (steps) io.observe(steps);
+  })();
+
+  /* ── Spec bars animate ── */
+  (function() {
+    const bars = document.querySelectorAll('.spec-bar');
+    bars.forEach(b => {
+      const w = b.style.width;
+      b.style.setProperty('--target-w', w);
+      b.style.width = '0';
+    });
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          bars.forEach((b, i) => setTimeout(() => b.classList.add('animated'), i * 120 + 200));
+          io.disconnect();
+        }
+      });
+    }, { threshold: 0.3 });
+    const specVis = document.querySelector('.spec-visual');
+    if (specVis) io.observe(specVis);
+  })();
+
+  /* ── Spec text side reveal ── */
+  document.querySelectorAll('.spec-text h3,.spec-text p,.spec-list li').forEach(el => el.classList.add('reveal'));
+  observe('.spec-text h3', el => el.classList.add('visible'));
+  observe('.spec-text p',  el => el.classList.add('visible'));
+  (function(){
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.closest('.spec-text').querySelectorAll('.spec-list li').forEach((li,i) => {
+            li.classList.add('reveal');
+            setTimeout(() => li.classList.add('visible'), i * 80 + 100);
+          });
+          io.disconnect();
+        }
+      });
+    }, { threshold: 0.2 });
+    const sl = document.querySelector('.spec-list');
+    if (sl) io.observe(sl);
+  })();
+
+  /* ── CTA reveal ── */
+  observe('.cta-content', el => el.classList.add('visible'));
+
+  /* ── Footer reveal ── */
+  (function(){
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.disconnect(); } });
+    }, { threshold: 0.3 });
+    const footer = document.querySelector('footer');
+    if (footer) io.observe(footer);
+  })();
+
+  /* ── Spec visual slide-in from left ── */
+  (function(){
+    const sv = document.querySelector('.spec-visual');
+    if (!sv) return;
+    sv.style.cssText += 'opacity:0;transform:translateX(-32px);transition:opacity 0.8s cubic-bezier(0.22,1,0.36,1),transform 0.8s cubic-bezier(0.22,1,0.36,1);';
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          sv.style.opacity = '1'; sv.style.transform = 'translateX(0)';
+          io.disconnect();
+        }
+      });
+    }, { threshold: 0.2 });
+    io.observe(sv);
+  })();
+</script>
+</body>
+</html>
