@@ -40,38 +40,47 @@
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
-    padding: 0 5vw;
+    padding: 0 4vw;
     height: 64px;
-    background: rgba(255,255,255,0.92);
+    background: rgba(255,255,255,0.95);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
+    transition: box-shadow 0.3s, background 0.3s;
+    white-space: nowrap;
+    gap: 24px;
   }
+  nav.scrolled { box-shadow: 0 2px 20px rgba(4,44,83,0.08); background: rgba(255,255,255,0.99); }
   .nav-logo {
     font-family: 'Fraunces', serif;
     font-size: 22px;
     font-weight: 600;
     color: var(--blue-800);
     letter-spacing: -0.5px;
+    flex-shrink: 0;
+    text-decoration: none;
   }
   .nav-logo span { color: var(--blue-400); }
-  .nav-links { display: flex; gap: 32px; }
+  .nav-links { display: flex; gap: 20px; align-items: center; flex-shrink: 0; }
   .nav-links a {
-    font-size: 14px;
+    font-size: 13.5px;
     font-weight: 400;
     color: var(--ink-muted);
     text-decoration: none;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.01em;
     transition: color 0.2s;
+    white-space: nowrap;
   }
   .nav-links a:hover { color: var(--blue-600); }
   .nav-cta {
     background: var(--blue-600);
     color: #fff !important;
-    padding: 8px 20px;
+    padding: 8px 18px;
     border-radius: 6px;
     font-weight: 500 !important;
     font-size: 13px !important;
     transition: background 0.2s !important;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
   .nav-cta:hover { background: var(--blue-800) !important; color: #fff !important; }
 
@@ -396,10 +405,10 @@
   }
 
   /* Hero staggered entrance */
-  .hero-eyebrow  { opacity: 0; transform: translateY(20px); animation: fadeUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.1s forwards; }
-  h1             { opacity: 0; transform: translateY(24px); animation: fadeUp 0.75s cubic-bezier(0.22,1,0.36,1) 0.25s forwards; }
-  .hero-sub      { opacity: 0; transform: translateY(20px); animation: fadeUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.4s forwards; }
-  .hero-actions  { opacity: 0; transform: translateY(16px); animation: fadeUp 0.65s cubic-bezier(0.22,1,0.36,1) 0.55s forwards; }
+  .hero .hero-eyebrow { opacity: 0; transform: translateY(20px); animation: fadeUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.1s forwards; }
+  .hero h1             { opacity: 0; transform: translateY(24px); animation: fadeUp 0.75s cubic-bezier(0.22,1,0.36,1) 0.25s forwards; }
+  .hero .hero-sub      { opacity: 0; transform: translateY(20px); animation: fadeUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.4s forwards; }
+  .hero .hero-actions  { opacity: 0; transform: translateY(16px); animation: fadeUp 0.65s cubic-bezier(0.22,1,0.36,1) 0.55s forwards; }
 
   @keyframes fadeUp {
     to { opacity: 1; transform: translateY(0); }
@@ -455,7 +464,7 @@
 </head>
 <body>
 
-<nav>
+<nav id="navbar">
   <div class="nav-logo">Meridian<span>.</span></div>
   <div class="nav-links">
     <a href="#services">Services</a>
@@ -664,7 +673,7 @@
 
 <script>
   /* ── Nav scroll shadow ── */
-  const nav = document.querySelector('nav');
+  const nav = document.getElementById('navbar') || document.querySelector('nav');
   window.addEventListener('scroll', () => {
     nav.classList.toggle('scrolled', window.scrollY > 24);
   }, { passive: true });
