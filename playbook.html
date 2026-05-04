@@ -36,23 +36,24 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* ── NAV ── */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
-    padding: 0 5vw; height: 64px;
-    background: rgba(255,255,255,0.92);
+    padding: 0 4vw; height: 64px;
+    background: rgba(255,255,255,0.95);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
     transition: box-shadow 0.3s, background 0.3s;
+    white-space: nowrap;
+    gap: 24px;
   }
-  nav.scrolled { box-shadow: 0 2px 20px rgba(4,44,83,0.08); background: rgba(255,255,255,0.97); }
-  .nav-logo { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 600; color: var(--blue-800); letter-spacing: -0.5px; text-decoration: none; }
+  nav.scrolled { box-shadow: 0 2px 20px rgba(4,44,83,0.08); background: rgba(255,255,255,0.99); }
+  .nav-logo { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 600; color: var(--blue-800); letter-spacing: -0.5px; text-decoration: none; flex-shrink: 0; }
   .nav-logo span { color: var(--blue-400); }
-  .nav-links { display: flex; gap: 32px; align-items: center; }
-  .nav-links a { font-size: 14px; color: var(--ink-muted); text-decoration: none; transition: color 0.2s; }
+  .nav-links { display: flex; gap: 20px; align-items: center; flex-shrink: 0; }
+  .nav-links a { font-size: 13.5px; color: var(--ink-muted); text-decoration: none; transition: color 0.2s; white-space: nowrap; }
   .nav-links a:hover, .nav-links a.active { color: var(--blue-600); }
-  .nav-cta { background: var(--blue-600); color: #fff !important; padding: 8px 20px; border-radius: 6px; font-weight: 500 !important; font-size: 13px !important; transition: background 0.2s !important; }
+  .nav-cta { background: var(--blue-600); color: #fff !important; padding: 8px 18px; border-radius: 6px; font-weight: 500 !important; font-size: 13px !important; transition: background 0.2s !important; white-space: nowrap; flex-shrink: 0; }
   .nav-cta:hover { background: var(--blue-800) !important; }
 
   /* ── PAGE HERO ── */
@@ -265,7 +266,7 @@
   .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1); }
   .reveal.visible { opacity: 1; transform: translateY(0); }
   .eyebrow  { opacity: 0; transform: translateY(16px); animation: fadeUp 0.6s cubic-bezier(0.22,1,0.36,1) 0.1s forwards; }
-  h1        { opacity: 0; transform: translateY(20px); animation: fadeUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.22s forwards; }
+  .page-hero h1 { opacity: 0; transform: translateY(20px); animation: fadeUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.22s forwards; }
   .page-sub { opacity: 0; transform: translateY(16px); animation: fadeUp 0.65s cubic-bezier(0.22,1,0.36,1) 0.36s forwards; }
   @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
@@ -285,11 +286,13 @@
 <body>
 
 <nav id="navbar">
-  <a href="meridian-portfolio.html" class="nav-logo">Meridian<span>.</span></a>
+  <a href="index.html" class="nav-logo">Meridian<span>.</span></a>
   <div class="nav-links">
-    <a href="meridian-portfolio.html#services" class="hide-mob">Services</a>
-    <a href="meridian-playbook.html" class="active">Playbook</a>
-    <a href="meridian-portfolio.html#contact" class="nav-cta">Get in touch</a>
+    <a href="index.html#services">Services</a>
+    <a href="index.html#process">How we work</a>
+    <a href="index.html#specialisation">Expertise</a>
+    <a href="playbook.html" class="active">Playbook</a>
+    <a href="index.html#contact" class="nav-cta">Get in touch</a>
   </div>
 </nav>
 
@@ -1035,10 +1038,10 @@
   <div class="footer-logo">Meridian<span>.</span></div>
   <p>© 2025 Meridian Marketing. All rights reserved.</p>
   <div class="footer-links">
-    <a href="meridian-portfolio.html">Home</a>
-    <a href="meridian-portfolio.html#services">Services</a>
-    <a href="meridian-playbook.html">Playbook</a>
-    <a href="meridian-portfolio.html#contact">Contact</a>
+    <a href="index.html">Home</a>
+    <a href="index.html#services">Services</a>
+    <a href="playbook.html">Playbook</a>
+    <a href="index.html#contact">Contact</a>
   </div>
 </footer>
 
